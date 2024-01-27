@@ -47,7 +47,6 @@ function App() {
   };
   
   const handleFavoriteToggle = (id) => {
-    console.log(id);
     setFavorites((prevFavorites) =>
       prevFavorites.includes(id) ? prevFavorites.filter(fav => fav !== id) : [...prevFavorites, id]
     );

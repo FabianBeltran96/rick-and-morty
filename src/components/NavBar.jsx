@@ -28,7 +28,6 @@ function NavBar({ onSearch, onSort, favoriteCount }) {
                     Rick and Morty
                 </Typography>
                 <Box sx={{ flexGrow: 1 }} />
-
                 <TextField
                     variant="outlined"
                     size="small"
@@ -36,7 +35,6 @@ function NavBar({ onSearch, onSort, favoriteCount }) {
                     onChange={handleSearchChange}
                     sx={{ bgcolor: 'white', flexGrow: 2, borderRadius: 1 }}
                 />
-
                 <Box sx={{ flexGrow: 1 }} />
                 <IconButton color="inherit" onClick={onSort}>
                     <SortByAlpha />

@@ -1,39 +1,23 @@
 import React, { useState, useEffect } from 'react';
 
 import NavBar from './components/NavBar';
-import CharacterCard from './components/CharacterCard';
 import CharacterDetails from './components/CharacterDetails';
+import RootPage from './components/RootPage';
 
-import { Stack, Grid } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 
 import useCharacters from './services/characterService';
-import './App.css'
 import theme from './theme';
+import './App.css'
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-
-function RootPage({ characters }) {
-  return (
-    <Grid  >
-      <Stack sx={{ padding: 2 }} spacing={{ xs: 1, sm: 2 }} direction="row" justifyContent="center"
-        alignItems="center" useFlexGap flexWrap="wrap">
-        {
-          characters && characters.map((item, index) => {
-            return (
-              <CharacterCard key={item.id} {...item} />
-            )
-          })
-        }
-      </Stack>
-    </Grid>
-  )
-}
 
 function App() {
   const { characters, isLoading, isError } = useCharacters();
   const [filteredCharacters, setFilteredCharacters] = useState([]);
   const [isSortedAsc, setIsSortedAsc] = useState(false);
+  const [favorites, setFavorites] = useState([]);
+
 
   useEffect(() => {
     if (characters) {
@@ -61,6 +45,13 @@ function App() {
     setIsSortedAsc(!isSortedAsc);
     setFilteredCharacters(sortedCharacters);
   };
+  
+  const handleFavoriteToggle = (id) => {
+    console.log(id);
+    setFavorites((prevFavorites) =>
+      prevFavorites.includes(id) ? prevFavorites.filter(fav => fav !== id) : [...prevFavorites, id]
+    );
+  };
 
   if (isError) return <div>failed to load</div>;
   if (isLoading) return <div>loading...</div>;
@@ -68,18 +59,22 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Router>
-        <NavBar onSearch={handleSearch} onSort={handleSort} />
+        <NavBar onSearch={handleSearch} onSort={handleSort} favoriteCount={favorites.length} />
         <div style={{ marginTop: 64 }}>
           <Routes>
             <Route path="/" element={
-              <RootPage characters={filteredCharacters} />
+              <RootPage 
+                characters={filteredCharacters} 
+                isLoading={isLoading} 
+                onFavoriteToggle={handleFavoriteToggle} 
+              />
             } />
             <Route path="/character/:id" element={<CharacterDetails />} />
           </Routes>
         </div>
       </Router>
     </ThemeProvider>
-  )
+  );
 }
 
 export default App

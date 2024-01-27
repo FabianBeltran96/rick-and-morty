@@ -19,7 +19,7 @@ function RootPage({ characters }) {
       <Stack sx={{ padding: 2 }} spacing={{ xs: 1, sm: 2 }} direction="row" justifyContent="center"
         alignItems="center" useFlexGap flexWrap="wrap">
         {
-          characters.map((item, index) => {
+          characters && characters.map((item, index) => {
             return (
               <CharacterCard key={item.id} {...item} />
             )
@@ -36,7 +36,9 @@ function App() {
   const [isSortedAsc, setIsSortedAsc] = useState(false);
 
   useEffect(() => {
-    setFilteredCharacters(characters);
+    if (characters) {
+      setFilteredCharacters(characters);
+    }
   }, [characters]);
 
   const handleSearch = (searchTerm) => {
@@ -65,7 +67,6 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-
       <Router>
         <NavBar onSearch={handleSearch} onSort={handleSort} />
         <div style={{ marginTop: 64 }}>

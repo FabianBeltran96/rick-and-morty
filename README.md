@@ -1,8 +1,36 @@
-# React + Vite
+# Rick and Morty Character Explorer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este proyecto es una aplicación web que permite a los usuarios buscar y visualizar personajes de la serie "Rick and Morty" usando la [Rick and Morty API](https://rickandmortyapi.com/).
 
-Currently, two official plugins are available:
+## Características
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Búsqueda de personajes por nombre.
+- Visualización de detalles al seleccionar un personaje.
+- Marcar personajes favoritos.
+
+## Tecnologías Utilizadas
+
+- React.js
+- Material-UI
+- React Router
+- SWR para manejo de datos remotos
+
+## Instalación
+
+Para ejecutar este proyecto en tu máquina local, necesitarás Node.js y npm instalados. Sigue los siguientes pasos:
+
+```bash
+# Clona este repositorio
+git clone git@github.com:FabianBeltran96/rick-and-morty.git
+
+# Navega al directorio del proyecto
+cd rick-and-morty
+
+# Instala las dependencias
+npm install
+
+# Inicia la aplicación en modo de desarrollo
+npm run dev
+```
+
+La aplicación se abrirá automáticamente en http://localhost:5173 en tu navegador.

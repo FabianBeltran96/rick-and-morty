@@ -1,8 +1,7 @@
 import CharacterCard from './CharacterCard';
 import { Stack, Grid } from '@mui/material';
 
-
-function RootPage({ characters, onFavoriteToggle}) {
+function RootPage({ characters, onFavoriteToggle, favorites }) {
     return (
         <Grid  >
             <Stack sx={{ padding: 2 }} spacing={{ xs: 1, sm: 2 }} direction="row" justifyContent="center"
@@ -11,7 +10,8 @@ function RootPage({ characters, onFavoriteToggle}) {
                     <CharacterCard
                         key={item.id}
                         {...item}
-                        onFavoriteToggle={onFavoriteToggle} 
+                        onFavoriteToggle={onFavoriteToggle}
+                        isFavorite={favorites[item.id]} 
                     />
                 ))}
             </Stack>

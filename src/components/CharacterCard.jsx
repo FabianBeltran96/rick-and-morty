@@ -1,7 +1,8 @@
 import { Card, CardActions, CardContent, CardMedia, Button, Typography } from '@mui/material';
+import { Favorite, FavoriteBorder } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 
-function CharacterCard({ id, name, image, species, onFavoriteToggle }) {
+function CharacterCard({ id, name, image, species, onFavoriteToggle, isFavorite }) {
   const navigate = useNavigate();
 
   const handleCardClick = () => {
@@ -30,8 +31,13 @@ function CharacterCard({ id, name, image, species, onFavoriteToggle }) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button variant="contained" color="secondary" size="small" onClick={handleFavoriteClick}>
-          Favorite
+        <Button
+          variant="contained"
+          color="secondary"
+          size="small"
+          onClick={handleFavoriteClick}
+          startIcon={isFavorite ? <Favorite /> : <FavoriteBorder />}
+        >
         </Button>
       </CardActions>
     </Card >

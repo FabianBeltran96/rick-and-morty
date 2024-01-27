@@ -16,8 +16,7 @@ function App() {
   const { characters, isLoading, isError } = useCharacters();
   const [filteredCharacters, setFilteredCharacters] = useState([]);
   const [isSortedAsc, setIsSortedAsc] = useState(false);
-  const [favorites, setFavorites] = useState([]);
-
+  const [favorites, setFavorites] = useState({});
 
   useEffect(() => {
     if (characters) {
@@ -45,12 +44,15 @@ function App() {
     setIsSortedAsc(!isSortedAsc);
     setFilteredCharacters(sortedCharacters);
   };
-  
+
   const handleFavoriteToggle = (id) => {
-    setFavorites((prevFavorites) =>
-      prevFavorites.includes(id) ? prevFavorites.filter(fav => fav !== id) : [...prevFavorites, id]
-    );
-  };
+    setFavorites((prevFavorites) => ({
+      ...prevFavorites,
+      [id]: !prevFavorites[id]
+    }));
+  }
+
+  const favoriteCount = Object.values(favorites).filter(Boolean).length;
 
   if (isError) return <div>failed to load</div>;
   if (isLoading) return <div>loading...</div>;
@@ -58,15 +60,11 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Router>
-        <NavBar onSearch={handleSearch} onSort={handleSort} favoriteCount={favorites.length} />
+        <NavBar onSearch={handleSearch} onSort={handleSort} favoriteCount={favoriteCount} />
         <div style={{ marginTop: 64 }}>
           <Routes>
             <Route path="/" element={
-              <RootPage 
-                characters={filteredCharacters} 
-                isLoading={isLoading} 
-                onFavoriteToggle={handleFavoriteToggle} 
-              />
+              <RootPage characters={filteredCharacters} onFavoriteToggle={handleFavoriteToggle} favorites={favorites} />
             } />
             <Route path="/character/:id" element={<CharacterDetails />} />
           </Routes>

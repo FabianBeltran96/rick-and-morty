@@ -2,9 +2,6 @@
 import { Typography, AppBar, Box, Toolbar, IconButton } from '@mui/material';
 import { Menu } from '@mui/icons-material';
 
-import { useNavigate } from 'react-router-dom';
-
-
 export default function NavBar() {
     return (
         <Box sx={{ flexGrow: 1 }} >
@@ -24,9 +21,8 @@ export default function NavBar() {
                         noWrap
                         component="div"
                         sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-
                     >
-                        MUI
+                        Rick and Morty
                     </Typography>
 
                 </Toolbar>

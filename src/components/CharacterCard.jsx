@@ -1,7 +1,7 @@
 import { Card, CardActions, CardContent, CardMedia, Button, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
-function CharacterCard({ id, name, image, origin }) {
+function CharacterCard({ id, name, image, species }) {
   const navigate = useNavigate();
 
   const handleCardClick = () => {
@@ -22,11 +22,11 @@ function CharacterCard({ id, name, image, origin }) {
           {name}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {origin.name}
+          {species}
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small" >Learn More</Button>
+        <Button variant="contained" color="secondary" size="small" >Favorite</Button>
       </CardActions>
     </Card >
 

@@ -1,48 +1,34 @@
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
-
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-
-import Container from '@mui/material/Container';
+import { Card, CardActions, CardContent, CardMedia, Button, Stack, Typography, AppBar, Box, Toolbar, IconButton, Grid } from '@mui/material';
+import { Menu } from '@mui/icons-material';
 
 import useSWR from 'swr'
 import axios from 'axios'
 
-import { useState } from 'react'
-
 import './App.css'
 
-function styledCard(props) {
+function StyledCard({ name, image, species }) {
   return (
-    <>
+    <Card sx={{ width: 300 }}>
       <CardMedia
         component="img"
         height="140"
-        image={props.image}
-        alt={props.name}
+
+        image={image}
+        alt={name}
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-          {props.name}
+          {name}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {props.species}
+          {species}
         </Typography>
       </CardContent>
       <CardActions>
         <Button size="small">Learn More</Button>
       </CardActions>
-
-    </>)
+    </Card >
+  );
 }
 
 function App() {
@@ -55,47 +41,44 @@ function App() {
   if (isLoading) return <div>loading...</div>
 
   return (
-    <>
-      <Container sx={{ padding: 0 }} >
-        <Box sx={{ flexGrow: 1 }}>
-          <AppBar position="static">
-            <Toolbar>
-              <IconButton
-                size="large"
-                edge="start"
-                color="inherit"
-                aria-label="open drawer"
-                sx={{ mr: 2 }}
-              >
-                <MenuIcon />
-              </IconButton>
-              <Typography
-                variant="h6"
-                noWrap
-                component="div"
-                sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-              >
-                MUI
-              </Typography>
+    <Grid  >
+      <Box sx={{ flexGrow: 1 }}>
+        <AppBar position="static">
+          <Toolbar>
+            <IconButton
+              size="large"
+              edge="start"
+              color="inherit"
+              aria-label="open drawer"
+              sx={{ mr: 2 }}
+            >
+              <Menu />
+            </IconButton>
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
+              sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+            >
+              MUI
+            </Typography>
 
-            </Toolbar>
-          </AppBar>
-        </Box>
-        <Stack spacing={3}>
-          {
-            data.results.map((item, index) => {
-              return (
-                <Card key={index}>
-                  {styledCard(item)}
-                </Card>
-              )
-            })
-          }
+          </Toolbar>
+        </AppBar>
+      </Box>
+      <Stack sx={{ padding: 2 }} spacing={{ xs: 1, sm: 2 }} direction="row" justifyContent="center"
+        alignItems="center" useFlexGap flexWrap="wrap">
+        {
+          data.results.map((item, index) => {
+            return (
+              <StyledCard key={item.id} {...item} />
+            )
+          })
+        }
 
-        </Stack>
+      </Stack>
 
-      </Container>
-    </>
+    </Grid>
   )
 }
 

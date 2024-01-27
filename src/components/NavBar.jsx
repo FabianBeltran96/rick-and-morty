@@ -1,32 +1,40 @@
+import React, { useState } from 'react';
+import { Typography, AppBar, Box, Toolbar, IconButton, TextField } from '@mui/material';
+import { Menu, SortByAlpha } from '@mui/icons-material';
 
-import { Typography, AppBar, Box, Toolbar, IconButton } from '@mui/material';
-import { Menu } from '@mui/icons-material';
+function NavBar({ onSearch, onSort }) {
+    const [search, setSearch] = useState('');
 
-export default function NavBar() {
+    const handleSearchChange = (event) => {
+        setSearch(event.target.value);
+        if (onSearch) {
+            onSearch(event.target.value);
+        }
+    };
+
     return (
-        <Box sx={{ flexGrow: 1 }} >
-            <AppBar position="static">
-                <Toolbar>
-                    <IconButton
-                        size="large"
-                        edge="start"
-                        color="inherit"
-                        aria-label="open drawer"
-                        sx={{ mr: 2 }}
-                    >
-                        <Menu />
-                    </IconButton>
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        component="div"
-                        sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-                    >
-                        Rick and Morty
-                    </Typography>
+        <AppBar position="fixed">
+            <Toolbar>
+                <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
+                    <Menu />
+                </IconButton>
+                <Typography variant="h6" sx={{ flexGrow: 1 }}>
+                    Rick and Morty
+                </Typography>
+                <IconButton color="inherit" onClick={onSort}>
+                    <SortByAlpha />
+                </IconButton>
+                <TextField
+                    variant="outlined"
+                    size="small"
+                    value={search}
+                    onChange={handleSearchChange}
+                    sx={{ bgcolor: 'white', borderRadius: 1 }}
+                />
 
-                </Toolbar>
-            </AppBar>
-        </Box>
+            </Toolbar>
+        </AppBar>
     )
 }
+
+export default NavBar;
